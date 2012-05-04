@@ -42,6 +42,17 @@ class Tag(models.Model):
         verbose_name = "Tag"
         verbose_name_plural = "Tags"
 
+class Sammlung(models.Model):
+    bezeichnung = models.CharField(max_length=200)
+
+    def __unicode__(self):
+        return self.bezeichnung
+
+    class Meta:
+        verbose_name = "Sammlung"
+        verbose_name_plural = "Sammlungen"
+
+        
 class Buch(models.Model):
     """
     Diese Klasse, stellt die Hauptklasse des Systems dar.
@@ -52,6 +63,7 @@ class Buch(models.Model):
     verlag = models.ForeignKey(Verlag, blank=True, null=True)
     cover = models.ImageField("Buchcover", blank=True, null=True, upload_to="/media/images/cover/")
     genre = models.ManyToManyField(Genre, blank=True, null=True)
+    sammlung = models.ForeignKey(Sammlung, blank=True, null=True)
     # ISBN besitzt unter der Annahme von ISBN-13 mit Trennzeichen eine maximale
     # Länge von 17 Zeichen
     isbn = models.CharField("ISBN", max_length=17, blank=True)
