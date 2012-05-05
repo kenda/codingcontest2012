@@ -37,3 +37,14 @@ Für eine volle Dokumentation über den Funktionsumfang der Schnittstelle, siehe
 ### Auto-Vervollständigung auf ISBN-Basis
 
 ### Suchfunktion
+
+## Dokumentation
+Sofern docutils installiert ist steht unter `/admin/doc/` eine Entwickler-Dokumentation zur Verfügung,
+die neben den Core-Funktionen von Django auch die Dokumentation der entwickelten Klassen umfasst.
+
+## Tests
+Um die erstellten Tests auszuführen muss lediglich 
+
+`python manage.py test`
+
+im Projektverzeichnis ausgeführt werden, worauf hin alle Tests ausgeführt werden.
