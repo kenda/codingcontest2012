@@ -96,7 +96,8 @@ class Buch(models.Model):
                                          null=True)
     verlag = models.ForeignKey(Verlag, blank=True, null=True)
     cover = models.ImageField("Buchcover", blank=True, null=True,
-                              upload_to="/media/images/cover/")
+                              upload_to="images/cover/",
+                              default="images/cover/blank.png")
     genre = models.ManyToManyField(Genre, blank=True, null=True)
     sammlung = models.ForeignKey(Sammlung, blank=True, null=True)
     # ISBN besitzt unter der Annahme von ISBN-13 mit Trennzeichen eine maximale

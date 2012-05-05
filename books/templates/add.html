@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="col_2">
+  <!-- Menu Vertical Left -->
+  <ul class="menu vertical">
+    <li class="current"><a href="/">&Uuml;bersicht</a></li>
+    <li><a href="">Wunschliste</a></li>
+    <li><a href="/stats/">Statistiken</a></li>
+    <li><a href="/export/">Export</a></li>
+  </ul>
+</div>
+
+<div class="col_10">
+  <form method="post" action="">
+    {% csrf_token %}
+    <table>
+      {{form}}
+    </table>
+    <button type="submit" class="medium" name="Erstellen" value=""><span class="icon medium" data-icon="C"></span>Abschicken</button>
+  </form>
+
+</div>
+
+{% endblock %}
