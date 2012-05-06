@@ -43,7 +43,7 @@ bei.
 
 ### Backend
 Das Backend besteht aus 6 Klassen, deren recht einfach gehaltene Beziehungen nachfolgendes UML-Klassendiagramm darstellt:
-<img src="uml_classes.png" width="800px" />
+<img src="https://github.com/kenda/codingcontest2012/raw/master/uml_classes.png" width="800px" />
 
 ### REST-Schnittstelle
 Die Buch-Verwaltung besitzt eine [REST](http://de.wikipedia.org/wiki/Representational_State_Transfer)-Schnittstelle, die es in der Standard-Konfiguration ermöglicht von außen beliebig neue Objekte anzulegen, zu ändern oder zu löschen. Die verwendete Bibliothek ist dabei [Tastypie](http://tastypieapi.org/).
@@ -55,7 +55,7 @@ Eine Beispiel-Abfrage, welche alle gespeicherten Bücher als JSON zurückgibt, s
 Für eine volle Dokumentation über den Funktionsumfang der Schnittstelle, siehe "[interacting with the API](http://readthedocs.org/docs/django-tastypie/en/latest/interacting.html)".
 
 ### Such- und Filterfunktion
-Aufbauen auf [Exhibit](http://simile-widgets.org/exhibit/) lassen sich die erstellten Bücher
+Aufbauend auf [Exhibit](http://simile-widgets.org/exhibit/) lassen sich die erstellten Bücher
 durchsuchen und durch umfangreiche Filterkriterien einschränken.
 
 ### Ansichten
