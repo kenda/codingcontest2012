@@ -1,5 +1,28 @@
 {% extends "base.html" %}
 
+{% block head_extra %}
+<script type="text/javascript">
+  function isbn_schnellsuche(){
+      var isbn = $("input[name=isbn]").val();
+      $.ajax({
+	  type: "GET",
+	  url: "http://openlibrary.org/api/books",
+	  data: {
+	      'bibkeys': "ISBN:"+isbn,
+	      'format': "jsonp"
+	  },
+	  dataType: "jsonp",
+	  success: function(data){
+	      console.log(data);
+	  },
+	  error: function(jqXHR, textStatus, errorThrown){
+	      console.error(jqXHR, textStatus, errorThrown);
+	  }
+      });
+  }
+</script>
+{% endblock %}
+
 {% block content %}
 <div class="col_2">
   <!-- Menu Vertical Left -->
@@ -12,6 +35,8 @@
 </div>
 
 <div class="col_10">
+  <input type="text" name="isbn" value="" />
+  <button class="medium" name="Schnellsuche" onclick="isbn_schnellsuche()">Schnellsuche</button>
   <form method="post" action="">
     {% csrf_token %}
     <table>

@@ -12,6 +12,10 @@ Die erstellte Webanwendung basiert auf [Django 1.4](http://djangoproject.com) un
 Bibliotheken ein. Für den vollen Funktionsumfang sind folgende Vorraussetzungen erforderlich:
 
 * Python 2.5 oder höher
+* Django 1.4
+* python-mimeparse
+* python-dateutil
+* Python Imaging Library
 * [docutils](http://docutils.sourceforge.net/)
 
 ## Installation

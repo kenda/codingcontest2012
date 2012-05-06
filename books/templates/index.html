@@ -85,7 +85,11 @@ $("table.exhibit-tabularView-body").addClass("sortable striped");
   </a>
 
   <div ex:role="viewPanel">
-    <div ex:role="view" ex:showHeader="false" ex:paginate="true" style="padding: 1em 0.5in;"></div>
+    <div ex:role="view" ex:viewClass="Thumbnail" ex:showHeader="false" ex:paginate="true" style="padding: 1em 0.5in;">
+      <div ex:role="lens" id="some_id" class="some_class" style="padding:10px;">
+      	<a ex:href-subcontent="/#{{.id}}" target="_blank"><img ex:src-content=".cover" title=".label" style="max-height:200px;" /></a>
+      </div>
+    </div>
     <div ex:role="view" ex:viewClass="Tabular"
 	 ex:columns=".label, .autor, .verlag, .genre, .veroeffentlichung, .bewertung, .preis, .lesezeichen" >
     </div>
@@ -94,6 +98,9 @@ $("table.exhibit-tabularView-body").addClass("sortable striped");
 	 ex:start=".veroeffentlichung"
 	 ex:end=".veroeffentlichung">
     </div>
+    <!-- <div ex:role="lens"> -->
+    <!--   muh -->
+    <!-- </div> -->
   </div>
 </div>
 
