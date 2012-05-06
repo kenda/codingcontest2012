@@ -15,7 +15,7 @@ def add_buch(request):
     Ausgangsformular aus oder legt ein neues Buch an.
     """
     if request.method == 'POST':
-        addForm = BuchForm(request.POST)
+        addForm = BuchForm(request.POST, request.FILES)
         if addForm.is_valid():
             addForm.save()
             return redirect("/")
@@ -35,7 +35,7 @@ def edit_buch(request, id):
     """
     buch = get_object_or_404(Buch, pk=id)
     if request.method == 'POST':
-        editForm = BuchForm(request.POST, instance=buch)
+        editForm = BuchForm(request.POST, request.FILES, instance=buch)
         if editForm.is_valid():
             editForm.save()
             return redirect("/")
