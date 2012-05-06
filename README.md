@@ -52,7 +52,8 @@ Eine Beispiel-Abfrage, welche alle gespeicherten Bücher als JSON zurückgibt, s
 
 `curl --user admin:admin http://localhost:8000/api/v1/buch/?format=json`
 
-Für eine volle Dokumentation über den Funktionsumfang der Schnittstelle, siehe "[interacting with the API](http://readthedocs.org/docs/django-tastypie/en/latest/interacting.html)".
+Für eine volle Dokumentation über den Funktionsumfang der Schnittstelle, siehe "[interacting with the API](http://readthedocs.org/docs/django-tastypie/en/latest/interacting.html)". Die auf der Übersichtsseit angezeigten Daten werden exemplarisch über die API angefordert.
+v
 
 ### Such- und Filterfunktion
 Aufbauend auf [Exhibit](http://simile-widgets.org/exhibit/) lassen sich die erstellten Bücher
