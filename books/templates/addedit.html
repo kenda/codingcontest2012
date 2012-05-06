@@ -27,7 +27,7 @@
   }
 
   $(document).ready(function(){
-    $("select").addClass("fancy");
+    $("#id_autor, #id_genre, #id_tag").addClass("fancy");
     $(".errorlist li").addClass("notice error");
   });
 </script>
@@ -53,7 +53,7 @@
 
   <form method="post" action="">
     {% csrf_token %}
-    <table>
+    <table id="addedit">
       {{form}}
     </table>
     <button type="submit" class="medium" name="Erstellen" value=""><span class="icon medium" data-icon="C"></span>Abschicken</button>
