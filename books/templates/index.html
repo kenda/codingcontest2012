@@ -7,11 +7,11 @@
 <script src="http://api.simile-widgets.org/exhibit/2.2.0/exhibit-api.js" type="text/javascript"></script>
 <script src="http://static.simile.mit.edu/exhibit/extensions-2.0/time/time-extension.js"></script>
 <script type="text/javascript">
-  // Exhibit modifiziert den Seitentitel standardmäßig unschön, durch
-  // Überschreiben der Funktion wird dies verhindert.
-      SimileAjax.History.formatHistoryEntryTitle = function(actionLabel) {
-	  return SimileAjax.History._plainDocumentTitle;
-      }
+// Exhibit modifiziert den Seitentitel standardmäßig unschön, durch
+// Überschreiben der Funktion wird dies verhindert.
+SimileAjax.History.formatHistoryEntryTitle = function(actionLabel) {
+    return SimileAjax.History._plainDocumentTitle;
+}
   
 /**
  * Diese Funktion wandelt das von der REST-Schnittstelle
@@ -22,8 +22,29 @@ function converter(json){
     json.items = json.objects;
     delete json.objects;
     for (item in json.items){
-	json.items[item].label = json.items[item].titel;
-	delete json.items[item].titel;
+        item = json.items[item];
+	item.label = item.titel;
+	delete item.titel;
+        item.myid = item.id;
+        if (sam = item.sammlung)
+            item.sammlung = sam.bezeichnung;
+        if (verlag = item.verlag)
+            item.verlag = verlag.bezeichnung;
+        if (autoren = item.autor){
+            for (autor in autoren){
+		autoren[autor] = autoren[autor].vorname+" " + autoren[autor].nachname;
+            }
+        }
+	if (genres = item.genre){
+            for (genre in genres){
+		genres[genre] = genres[genre].bezeichnung;
+            }
+        }
+	if (tags = item.tag){
+            for (tag in tags){
+		tags[tag] = tags[tag].bezeichnung;
+            }
+        }
     }
     json.properties = {
 	'label': {
@@ -36,6 +57,9 @@ function converter(json){
 	    label: "Veröffentlichung",
 	    valueType: "date"
 	},
+        'genre': {
+            label: "Genre"
+        },
 	'verlag': {
 	    label: "Verlag"
 	},
@@ -46,7 +70,8 @@ function converter(json){
 	    label: "Bemerkung"
 	},
 	'preis': {
-	    label: "Preis"
+	    label: "Preis",
+            valueType: "number"
 	},
 	'lesezeichen': {
 	    label: "Lesezeichen"
@@ -56,58 +81,59 @@ function converter(json){
 	    label: "Bewertung"
 	}
     };
-    console.log(json);
     return json;
 }
-$(document).ready(function() {
-$("table.exhibit-tabularView-body").addClass("sortable striped");
-
-});
 </script>
 
 {% endblock %}
     
 {% block content %}
 
-<div class="col_2">
-  <!-- Menu Vertical Left -->
-  <ul class="menu vertical">
-    <li class="current"><a href="/">&Uuml;bersicht</a></li>
-    <li><a href="">Wunschliste</a></li>
-    <li><a href="/stats/">Statistiken</a></li>
-    <li><a href="/export/">Export</a></li>
-  </ul>
-</div>
-
-<div class="col_7">
+<div class="col_9">
   <a class="button orange" href="/add/">
     <span class="icon medium" data-icon="+"></span>neues Buch
   </a>
 
   <div ex:role="viewPanel">
+    <!-- Vorschaubilder -->
     <div ex:role="view" ex:viewClass="Thumbnail" ex:showHeader="false" ex:paginate="true" style="padding: 1em 0.5in;">
-      <div ex:role="lens" id="some_id" class="some_class" style="padding:10px;">
-      	<a ex:href-subcontent="/#{{.id}}" target="_blank"><img ex:src-content=".cover" title=".label" style="max-height:200px;" /></a>
+      <div ex:role="lens" style="padding:10px;text-align:center">
+      	<a ex:href-content="concat('/', .myid)">
+      	  <img ex:src-content=".cover" class="cover" /><br/>
+      	  <span ex:content=".label"></span>
+      	</a>
       </div>
     </div>
+
+    <!-- Tabellenansicht -->
     <div ex:role="view" ex:viewClass="Tabular"
-	 ex:columns=".label, .autor, .verlag, .genre, .veroeffentlichung, .bewertung, .preis, .lesezeichen" >
+	 ex:columns=".label, .autor, .genre, .bewertung" >
+      <table>
+        <tr>
+          <td><a ex:href-content="concat('/', .myid)"><span ex:content=".label"></span></a></td>
+          <td><span ex:content=".autor"></span></td>
+	  <td><span ex:content=".genre"></span></td>
+	  <td><span ex:content=".bewertung"></span></td>
+        </tr>
+      </table>
     </div>
+
+    <!-- Timeline-Ansicht -->
     <div ex:role="view" 
-	 ex:viewClass="Timeline" 
+	 ex:viewClass="Timeline"
+	 ex:showHeader="false"
+	 ex:showSummary="false"
 	 ex:start=".veroeffentlichung"
 	 ex:end=".veroeffentlichung">
     </div>
-    <!-- <div ex:role="lens"> -->
-    <!--   muh -->
-    <!-- </div> -->
   </div>
 </div>
 
 <div class="col_3">
+  <!-- Such- und Filterabschnitt -->
    <div ex:role="facet" 
 	ex:facetClass="TextSearch"
-	ex:faceLabel="Volltext-Suche">
+	ex:facetLabel="Suche">
    </div><br/>
 
    <div ex:role="facet" 
@@ -115,22 +141,28 @@ $("table.exhibit-tabularView-body").addClass("sortable striped");
 	ex:expression=".autor"
 	ex:facetLabel="Autoren" >
    </div><br/>
-   
+
    <div ex:role="facet" 
 	ex:facetClass="Cloud"
+	ex:expression=".genre"
+	ex:facetLabel="Genre" >
+   </div><br/>
+   
+   <div ex:role="facet" 
+	ex:expression=".sammlung"
+	ex:facetLabel="Sammlungen" >
+   </div><br/>
+
+   <div ex:role="facet" 
 	ex:expression=".verlag"
 	ex:facetLabel="Verlage" >
    </div><br/>
 
    <div ex:role="facet" 
-	ex:expression=".bewertung"
-	ex:facetClass="Slider" 
-	ex:horizontal="true"
-	ex:precision="0.5"
-	ex:histogram="false"
-	ex:facetLabel="Bewertung">
-   </div>
-
+	ex:facetClass="Cloud"
+	ex:expression=".tag"
+	ex:facetLabel="Tags" >
+   </div><br/>
 
 </div>
 {% endblock %}

@@ -2,6 +2,10 @@
 
 {% block head_extra %}
 <script type="text/javascript">
+  function success(data){
+    console.log(data);
+  }
+  
   function isbn_schnellsuche(){
       var isbn = $("input[name=isbn]").val();
       $.ajax({
@@ -9,34 +13,44 @@
 	  url: "http://openlibrary.org/api/books",
 	  data: {
 	      'bibkeys': "ISBN:"+isbn,
-	      'format': "jsonp"
+	      'format': "jsonp",
+              'callback': "success"
 	  },
 	  dataType: "jsonp",
 	  success: function(data){
-	      console.log(data);
+	      console.log("muh",data);
 	  },
 	  error: function(jqXHR, textStatus, errorThrown){
 	      console.error(jqXHR, textStatus, errorThrown);
 	  }
       });
   }
+
+  $(document).ready(function(){
+    $("select").addClass("fancy");
+    $(".errorlist li").addClass("notice error");
+  });
 </script>
 {% endblock %}
 
 {% block content %}
-<div class="col_2">
-  <!-- Menu Vertical Left -->
-  <ul class="menu vertical">
-    <li class="current"><a href="/">&Uuml;bersicht</a></li>
-    <li><a href="">Wunschliste</a></li>
-    <li><a href="/stats/">Statistiken</a></li>
-    <li><a href="/export/">Export</a></li>
-  </ul>
-</div>
 
 <div class="col_10">
-  <input type="text" name="isbn" value="" />
-  <button class="medium" name="Schnellsuche" onclick="isbn_schnellsuche()">Schnellsuche</button>
+  <ul class="breadcrumbs alt1">
+    <li><a href="/">Übersicht</a></li>
+    {% if buch %}
+      <li><a href="/{{buch.id}}/">{{buch.titel}}</a></li>
+      <li><a href="">bearbeiten</a></li>
+    {% else %}
+      <li><a href="">neues Buch</a></li>
+    {% endif %}
+  </ul>
+  
+  <!-- <input id="text2" type="text" placeholder="ISBN-Nummer" class="col_3"/> -->
+  <!-- <button class="medium" name="Schnellsuche" onclick="isbn_schnellsuche()">Schnellsuche</button> -->
+
+  <!-- <hr class="alt2" /> -->
+
   <form method="post" action="">
     {% csrf_token %}
     <table>

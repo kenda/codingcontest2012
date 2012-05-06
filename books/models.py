@@ -5,6 +5,7 @@ from django.db import models
 class Genre(models.Model):
     """
     Ein Genre umfasst eine bestimmte Kategorie eines Buches.
+
     Bspw. "Krimi", "Biografie" oä.
     Denkbar ein umfassenderes Genre-Modell als Taxonomie zu
     implementieren.
@@ -21,8 +22,8 @@ class Genre(models.Model):
 
 class Autor(models.Model):
     """
-    Die Klasse Autor beschreibt genau eine Person,
-    die als Autor auftritt.
+    Die Klasse Autor beschreibt genau eine Person, die als Autor auftritt.
+
     Weitere biografische Fakten denkbar und leicht
     erweiterbar.
     """
@@ -53,8 +54,8 @@ class Verlag(models.Model):
 
 class Tag(models.Model):
     """
-    Ein Tag beschreibt eine weitere Klassifikations-
-    Eigenschaft eines Buches.
+    Ein Tag beschreibt eine weitere Klassifikations-Eigenschaft eines Buches.
+
     Im Gegensatz zum Genre bspw. beschreiben beliebig
     viele Tags ein bestimmtes Objekt näher.
     """
@@ -70,8 +71,8 @@ class Tag(models.Model):
 
 class Sammlung(models.Model):
     """
-    Eine Sammlung umfasst mehrere Bücher und gruppiert
-    diese so.
+    Eine Sammlung umfasst mehrere Bücher und gruppiert diese so.
+
     Eine besondere Sammlung ist die ID 1, die "Wunschliste".
     """
     bezeichnung = models.CharField(max_length=200)
@@ -87,6 +88,7 @@ class Sammlung(models.Model):
 class Buch(models.Model):
     """
     Diese Klasse, stellt die Hauptklasse des Systems dar.
+
     Ein Buch muss dabei zwingend lediglich einen Titel besitzen.
     Autor, Verlag etc. sind optional.
     """

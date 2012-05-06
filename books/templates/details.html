@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="col_10">
+  <ul class="breadcrumbs alt1">
+    <li><a href="/">Übersicht</a></li>
+    <li><a href="">{{buch.titel}}</a></li>
+  </ul>
+
+  <div class="col_3">
+    <img src="{{MEDIA_URL}}{{buch.cover}}" class="cover" alt="Cover" />
+  </div>
+
+  <div class="col_8">
+    <ul class="button-bar">
+      <li><a href="/edit/{{buch.id}}/"><span class="icon" data-icon="7"></span> Bearbeiten</a></li>
+      <li><a href="/del/{{buch.id}}/"><span class="icon" data-icon="T"></span> Löschen</a></li>
+    </ul>
+
+    <h2>{{buch.titel}}</h2>
+    {% if autoren %}<span>von {{autoren|join:", "}}</span>{% endif %}
+    <table class="infobox">
+      <tr>
+	<td>
+	  <label>Veröffentlichung:</label>
+	</td>
+	<td>
+	  <p>{{buch.veroeffentlichung|default:"nicht angegeben"}}</p>
+	</td>
+      </tr>
+      <tr>
+	<td>
+	  <label>Verlag:</label>
+	</td>
+	<td>
+	  <p>{{buch.verlag|default:"nicht angegeben"}}</p>
+	</td>
+      </tr>
+      <tr>
+	<td>
+	  <label>Genre:</label>
+	</td>
+	<td>
+	  <p>{{genre|join:", "|default:"nicht angegeben"}}</p>
+	</td>
+      </tr>
+      <tr>
+	<td>
+	  <label>Sammlung:</label>
+	</td>
+	<td>
+	  <p>{{buch.sammlung|default:"nicht angegeben"}}</p>
+	</td>
+      </tr>
+      <tr>
+	<td>
+	  <label>ISBN:</label>
+	</td>
+	<td>
+	  <p>{{buch.isbn|default:"nicht angegeben"}}</p>
+	</td>
+      </tr>
+      <tr>
+	<td>
+	  <label>Bewertung:</label>
+	</td>
+	<td>
+	  <p>{{buch.bewertung|default:"nicht angegeben"}}</p>
+	</td>
+      </tr>
+      <tr>
+	<td>
+	  <label>Preis:</label>
+	</td>
+	<td>
+	  <p>{{buch.preis|default:"nicht angegeben"}}</p>
+	</td>
+      </tr>
+      <tr>
+	<td>
+	  <label>Lesezeichen:</label>
+	</td>
+	<td>
+	  <p>{{buch.lesezeichen|default:"nicht angegeben"}}</p>
+	</td>
+      </tr>
+      <tr>
+	<td>
+	  <label>Bemerkung:</label>
+	</td>
+	<td>
+	  <p>{{buch.bemerkung|default:"nicht angegeben"}}</p>
+	</td>
+      </tr>
+    </table>
+    <div class="tags">
+      {% for tag in tags %}
+      <span class="icon small gray" data-icon="B"></span>&nbsp;{{tag}}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% endblock %}

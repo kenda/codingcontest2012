@@ -50,7 +50,7 @@ text-shadow: 0px 0px 1px transparent; /* google font pixelation fix */
 }
 
 #wrap{
-width:1360px;
+width:1160px;
 background:#fff;
 margin:30px auto 30px auto;
 padding:0;
@@ -92,3 +92,35 @@ left:0;
 	-webkit-border-radius:3px;
 	border-radius:3px;
 	}
+
+.cover{
+    max-height:200px;
+}
+
+.infobox{
+    padding: 20px;
+    margin-top: 40px;
+    font-size: 1.2em;border-collapse:collapse;
+    }
+
+.infobox label{
+    font-weight: bold;
+    }
+
+.infobox p{
+    display: inline;
+    margin-right: 10px;
+    }
+
+#id_tag{
+    width: 300px;
+    }
+
+.errorlist{
+    list-style-type:none;
+    margin: 0px;
+    }
+
+.exhibit-views-header{
+    display:none;
+    }
